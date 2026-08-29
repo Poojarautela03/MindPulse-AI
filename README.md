@@ -35,13 +35,6 @@ The project includes a **FastAPI backend**, a **custom vanilla HTML/CSS/JavaScri
 **👉 https://mindpulse-ai-1-1gav.onrender.com**
 
 ---
-## 🎥 Demo Video
-
-See MindPulse AI in action:
-
-https://github.com/Poojarautela03/MindPulse-AI/blob/main/assets/Video%20Project%201.mp4
-
----
 
 ## ✨ Features
 
