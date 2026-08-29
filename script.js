@@ -23,6 +23,74 @@
   const GAUGE_ARC_LENGTH = 314; // approx pi * r(100)
 
   // ---------------------------------------------------------
+  // Dark mode toggle
+  // ---------------------------------------------------------
+  const themeToggle = document.getElementById("theme-toggle");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  let isDark = prefersDark;
+
+  function applyTheme() {
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+  }
+  applyTheme();
+
+  themeToggle.addEventListener("click", () => {
+    isDark = !isDark;
+    applyTheme();
+  });
+
+  // ---------------------------------------------------------
+  // Progress indicator — advances as each fieldset group
+  // receives focus, based on which group the active field is in
+  // ---------------------------------------------------------
+  const progressFill = document.getElementById("progress-fill");
+  const progressDots = document.querySelectorAll(".progress-dot");
+  const fieldsetGroups = document.querySelectorAll("fieldset.group");
+
+  function setProgressStep(stepIndex) {
+    const pct = fieldsetGroups.length > 1 ? (stepIndex / (fieldsetGroups.length - 1)) * 100 : 100;
+    progressFill.style.width = `${pct}%`;
+    progressDots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === stepIndex);
+      dot.classList.toggle("done", i < stepIndex);
+    });
+  }
+
+  fieldsetGroups.forEach((fieldset, index) => {
+    fieldset.querySelectorAll("input, select, button.seg-btn").forEach((el) => {
+      el.addEventListener("focus", () => setProgressStep(index));
+    });
+  });
+
+  // ---------------------------------------------------------
+  // Scroll-reveal entrance animation
+  // ---------------------------------------------------------
+  const revealTargets = document.querySelectorAll(
+    "fieldset.group, .method-step, .result-panel"
+  );
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealTargets.forEach((el, i) => {
+      el.classList.add("reveal-target");
+      el.style.setProperty("--reveal-delay", `${Math.min(i, 4) * 70}ms`);
+      revealObserver.observe(el);
+    });
+  } else {
+    revealTargets.forEach((el) => el.classList.add("in-view"));
+  }
+
+  // ---------------------------------------------------------
   // Draw tick marks on both gauges (0..10, every 2 units)
   // ---------------------------------------------------------
   function drawTicks() {
