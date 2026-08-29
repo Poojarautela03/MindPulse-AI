@@ -3,21 +3,38 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="MindPulse AI predicts a student wellness signal score from screen time, sleep, study and stress habits, using a machine-learning model trained on real student survey data." />
 <title>Mental Health Signal — Student Wellness Analytics</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%2321594A'/%3E%3Cpath d='M20 50 L35 50 L42 30 L55 70 L62 50 L80 50' stroke='%23EEF2EE' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
-</head>S
+</head>
 <body>
 
+<div class="mesh-bg" aria-hidden="true">
+  <span></span><span></span><span></span>
+</div>
 <div class="noise-overlay" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="header-inner">
-    <span class="eyebrow">Student Wellness Analytics</span>
+    <div class="header-top-row">
+      <span class="eyebrow">Student Wellness Analytics</span>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
     <h1 class="title">Mental Health <em>Signal</em></h1>
     <p class="subtitle">A quick read on how habits, screen time, and stress are trending — modeled from your daily rhythm, not a diagnosis.</p>
+
+    <ul class="stat-strip">
+      <li><span class="stat-value">700+</span><span class="stat-label">student records</span></li>
+      <li><span class="stat-value">12</span><span class="stat-label">lifestyle features</span></li>
+      <li><span class="stat-value">Random Forest</span><span class="stat-label">regression model</span></li>
+    </ul>
   </div>
 </header>
 
@@ -25,6 +42,14 @@
 
   <!-- FORM PANEL -->
   <section class="panel form-panel" aria-labelledby="form-heading">
+    <div class="progress-track" id="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progress-fill"></div>
+      <div class="progress-steps">
+        <span class="progress-dot active" data-step="0"></span>
+        <span class="progress-dot" data-step="1"></span>
+        <span class="progress-dot" data-step="2"></span>
+      </div>
+    </div>
     <form id="predict-form" novalidate>
 
       <fieldset class="group">
@@ -218,6 +243,7 @@
 
       <div class="state state-error" id="state-error" hidden>
         <div class="error-icon" aria-hidden="true">!</div>
+        <p class="error-label" id="error-label"></p>
         <p class="error-copy" id="error-copy"></p>
         <button type="button" class="reset-btn" id="error-retry-btn">Try again</button>
       </div>
@@ -226,6 +252,34 @@
   </aside>
 
 </main>
+
+<section class="methodology" aria-labelledby="methodology-heading">
+  <div class="methodology-inner">
+    <h2 id="methodology-heading">How this works</h2>
+    <div class="method-grid">
+      <div class="method-step">
+        <span class="method-index">01</span>
+        <h3>Dataset</h3>
+        <p>Trained on a student social-media &amp; mental-health survey covering usage habits, sleep, study time, and self-reported stress.</p>
+      </div>
+      <div class="method-step">
+        <span class="method-index">02</span>
+        <h3>Features</h3>
+        <p>12 inputs — demographics, platform choice, daily screen time and unlocks, study/activity/sleep hours, and stress level — plus a grouped-country signal.</p>
+      </div>
+      <div class="method-step">
+        <span class="method-index">03</span>
+        <h3>Model</h3>
+        <p>A regression model maps these habits to a single 0–10 wellness score, served through a FastAPI backend.</p>
+      </div>
+      <div class="method-step">
+        <span class="method-index">04</span>
+        <h3>The score</h3>
+        <p>Higher is better. It's a pattern-based signal from the training data, not a clinical or diagnostic measure.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer class="site-footer">
   <p>Built for informational purposes only — this is not a clinical assessment. If you're struggling, please talk to someone you trust.</p>
