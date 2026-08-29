@@ -13,6 +13,7 @@
 
 ---
 
+
 ## 🌟 What is MindPulse AI?
 
 **MindPulse AI** is a machine-learning-powered web application that estimates a student's **Wellness Signal Score from 0–10** using everyday lifestyle and academic habits.
@@ -33,6 +34,12 @@ The project includes a **FastAPI backend**, a **custom vanilla HTML/CSS/JavaScri
 
 **👉 https://mindpulse-ai-1-1gav.onrender.com**
 
+---
+## 🎥 Demo Video
+
+See MindPulse AI in action:
+
+[![▶️ Watch the MindPulse AI Demo](https://img.shields.io/badge/▶️%20Watch%20Demo-MindPulse%20AI-ff4b4b?style=for-the-badge)](./mindpulse-ai-demo.mp4)
 ---
 
 ## ✨ Features
